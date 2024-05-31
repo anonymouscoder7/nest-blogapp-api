@@ -1,12 +1,14 @@
-import { Body, Controller, Post, UploadedFile, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { BlogService } from "./blogs.service";
 import { CreateBlogDto } from "./dto/CreateBlog.dto";
 import { FileUploadInterceptor } from "src/common/interceptors/file-upload.interceptor";
+import { JwtAuthGuard } from "src/auth/auth.guard";
 
 @Controller('blogs')
 export class BlogControllers {
     constructor(private blogService: BlogService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Post('store')
     @UsePipes(new ValidationPipe())
     @UseInterceptors(FileUploadInterceptor('blogs'))

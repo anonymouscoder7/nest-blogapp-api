@@ -4,6 +4,7 @@ import { User, UserSchema } from 'src/schemas/User.schema';
 import { UserService } from './users.service';
 import { UserControllers } from './users.controller';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from 'src/auth/jwt.strategy';
 
 @Module({
     imports: [
@@ -14,12 +15,12 @@ import { JwtModule } from '@nestjs/jwt';
             }
         ]),
         JwtModule.register({
-            secret: 'yourSecretKey', 
-            signOptions: { expiresIn: '1h' }, 
+            secret: 'anonymous', 
+            signOptions: { expiresIn: '60m' }, 
         }),
     ],
     providers: [
-        UserService
+        UserService,JwtStrategy
     ],
     controllers: [
         UserControllers

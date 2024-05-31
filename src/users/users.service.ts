@@ -39,7 +39,7 @@ export class UserService {
         }
         return null;
     }
-
+    
     async loginUser(loginUserDto: LoginUserDto) {
         const user = await this.validateUser(loginUserDto.email, loginUserDto.password);
         if (!user) {
@@ -50,5 +50,9 @@ export class UserService {
             user:user,
             access_token: this.jwtService.sign(payload),
         };
+    }
+
+    async validateUserById(userId: string): Promise<User | null> {
+        return this.userModel.findById(userId).exec();
     }
 }
