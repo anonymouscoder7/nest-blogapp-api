@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Blog, BlogSchema } from 'src/schemas/Blog.schema';
 import { BlogService } from './blogs.service';
 import { BlogControllers } from './blogs.controller';
+import { Category, CategorySchema } from 'src/categories/entities/category.entity';
 
 @Module({
     imports: [
@@ -12,6 +13,8 @@ import { BlogControllers } from './blogs.controller';
                 schema: BlogSchema
             }
         ]),
+        MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }]),
+
     ],
     providers: [
         BlogService
